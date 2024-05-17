@@ -37,6 +37,7 @@ function createBookElement({ author, id, image, title }) {
   return element;
 }
 
+// Function to create an option element
 function createOptionElement(text, value) {
   const element = document.createElement("option");
   element.value = value;
@@ -46,6 +47,7 @@ function createOptionElement(text, value) {
 
 createOptionElement();
 
+// Function to render genre options in the dropdown
 function renderGenres() {
   const genreHtml = document.createDocumentFragment();
   const firstGenreElement = createOptionElement("All Genre", "any");
@@ -61,6 +63,7 @@ function renderGenres() {
 
 renderGenres();
 
+// Function to render author options in the dropdown
 function renderAuthors() {
   const authorsHtml = document.createDocumentFragment();
   const firstAuthorElement = createOptionElement("All authors", "any");
@@ -132,11 +135,12 @@ document.querySelector("[data-list-button]").addEventListener("click", () => {
   showMoreBtn();
 });
 
-//
+// Function to filter books based on provided filters
 function filterBooks(books, filters) {
   const filteredBooks = books.filter((book) => {
     let genreMatch = filters.genre === "any";
 
+    // Loop through each genre of the current book
     for (const singleGenre of book.genres) {
       if (genreMatch) break;
       if (singleGenre === filters.genre) {
@@ -155,6 +159,7 @@ function filterBooks(books, filters) {
   return filteredBooks;
 }
 
+// Add event listener for the search form submission
 document
   .querySelector("[data-search-form]")
   .addEventListener("submit", (event) => {
@@ -166,6 +171,7 @@ document
     page = 1;
     matches = result;
 
+    // Show or hide the message based on the filter results
     if (result.length < 1) {
       document
         .querySelector("[data-list-message]")
@@ -181,33 +187,39 @@ document
 
     window.scrollTo({ top: 0, behavior: "smooth" });
     document.querySelector("[data-search-overlay]").open = false;
-  });
+});
 
+// Event listener for the search modal cancel button
 document.querySelector("[data-search-cancel]").addEventListener("click", () => {
   document.querySelector("[data-search-overlay]").open = false;
 });
 
+// Event listener for the settings modal cancel button
 document
   .querySelector("[data-settings-cancel]")
   .addEventListener("click", () => {
     document.querySelector("[data-settings-overlay]").open = false;
-  });
+});
 
+// Event listener for the search button
 document.querySelector("[data-header-search]").addEventListener("click", () => {
   document.querySelector("[data-search-overlay]").open = true;
   document.querySelector("[data-search-title]").focus();
 });
 
+// Event listener for the settings button
 document
   .querySelector("[data-header-settings]")
   .addEventListener("click", () => {
     document.querySelector("[data-settings-overlay]").open = true;
-  });
+});
 
+// Event listener for the list close button
 document.querySelector("[data-list-close]").addEventListener("click", () => {
   document.querySelector("[data-list-active]").open = false;
 });
 
+// Event listener for clicks on the book list
 document
   .querySelector("[data-list-items]")
   .addEventListener("click", (event) => {
@@ -240,4 +252,4 @@ document
       document.querySelector("[data-list-description]").innerText =
         active.description;
     }
-  });
+});
