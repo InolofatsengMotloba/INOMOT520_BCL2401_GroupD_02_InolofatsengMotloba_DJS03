@@ -3,9 +3,18 @@ import { books, authors, genres, BOOKS_PER_PAGE } from './data.js'
 let page = 1;
 let matches = books
 
-const starting = document.createDocumentFragment()
+function renderBooks(books) {
+    const starting = document.createDocumentFragment();
+    books.forEach((book) => {
+        const element = createBookElement(book);
+        starting.appendChild(element);
+    })
+    document.querySelector("[data-list-items]").appendChild(starting);
+}
 
-for (const { author, id, image, title } of matches.slice(0, BOOKS_PER_PAGE)) {
+renderBooks(matches.slice(0, BOOKS_PER_PAGE));
+
+function createBookElement ({ author, id, image, title }) {
     const element = document.createElement('button')
     element.classList = 'preview'
     element.setAttribute('data-preview', id)
@@ -22,7 +31,7 @@ for (const { author, id, image, title } of matches.slice(0, BOOKS_PER_PAGE)) {
         </div>
     `
 
-    starting.appendChild(element)
+    return element;
 }
 
 document.querySelector('[data-list-items]').appendChild(starting)
