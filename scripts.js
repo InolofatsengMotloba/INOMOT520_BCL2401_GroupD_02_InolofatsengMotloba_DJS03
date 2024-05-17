@@ -3,6 +3,7 @@ import { books, authors, genres, BOOKS_PER_PAGE } from './data.js'
 let page = 1;
 let matches = books
 
+// Generates book elements
 function renderBooks(books) {
     const starting = document.createDocumentFragment();
     books.forEach((book) => {
@@ -14,6 +15,7 @@ function renderBooks(books) {
 
 renderBooks(matches.slice(0, BOOKS_PER_PAGE));
 
+// Button element with preview information - image & info
 function createBookElement ({ author, id, image, title }) {
     const element = document.createElement('button')
     element.classList = 'preview'
