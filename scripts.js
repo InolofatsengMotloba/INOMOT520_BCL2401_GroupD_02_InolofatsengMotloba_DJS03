@@ -36,7 +36,6 @@ function createBookElement ({ author, id, image, title }) {
     return element;
 }
 
-document.querySelector('[data-list-items]').appendChild(starting)
 
 const genreHtml = document.createDocumentFragment()
 const firstGenreElement = document.createElement('option')
