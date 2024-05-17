@@ -36,36 +36,44 @@ function createBookElement ({ author, id, image, title }) {
     return element;
 }
 
-
-const genreHtml = document.createDocumentFragment()
-const firstGenreElement = document.createElement('option')
-firstGenreElement.value = 'any'
-firstGenreElement.innerText = 'All Genres'
-genreHtml.appendChild(firstGenreElement)
-
-for (const [id, name] of Object.entries(genres)) {
-    const element = document.createElement('option')
-    element.value = id
-    element.innerText = name
-    genreHtml.appendChild(element)
+function createOptionElement(text, value) {
+    const element = document.createElement("option");
+    element.value = value;
+    element.innerText = text;
+    return element;
 }
 
-document.querySelector('[data-search-genres]').appendChild(genreHtml)
+createOptionElement();
 
-const authorsHtml = document.createDocumentFragment()
-const firstAuthorElement = document.createElement('option')
-firstAuthorElement.value = 'any'
-firstAuthorElement.innerText = 'All Authors'
-authorsHtml.appendChild(firstAuthorElement)
+function renderGenres() {
+    const genreHtml = document.createDocumentFragment()
+    const firstGenreElement = createOptionElement("All Genre", "any");
+    genreHtml.appendChild(firstGenreElement)
 
-for (const [id, name] of Object.entries(authors)) {
-    const element = document.createElement('option')
-    element.value = id
-    element.innerText = name
-    authorsHtml.appendChild(element)
+    for (const [id, name] of Object.entries(genres)) {
+        const element = createOptionElement(id, name);
+        genreHtml.appendChild(element)
+    }
+
+    document.querySelector('[data-search-genres]').appendChild(genreHtml)
 }
 
-document.querySelector('[data-search-authors]').appendChild(authorsHtml)
+renderGenres()
+
+function renderAuthors() {
+    const authorsHtml = document.createDocumentFragment()
+    const firstAuthorElement = createOptionElement("All authors", "any");
+    authorsHtml.appendChild(firstAuthorElement)
+
+    for (const [id, name] of Object.entries(authors)) {
+        const element = createOptionElement(name, id);
+        authorsHtml.appendChild(element)
+    }
+
+    document.querySelector('[data-search-authors]').appendChild(authorsHtml)
+}
+
+renderAuthors();
 
 if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
     document.querySelector('[data-settings-theme]').value = 'night'
